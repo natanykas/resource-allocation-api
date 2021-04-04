@@ -10,7 +10,8 @@ Schedule
 id: integer
 Room: integer
 Date: date
-Time: time
+Time_Start: time
+Time_End
 User: user_id
 
 User
