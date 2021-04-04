@@ -15,15 +15,12 @@ class SchedulesController < ApplicationController
 
   # POST /schedules
   def create
-    #TODO
-    if SchedulesBusiness.new(schedule_params) 
-      @schedule = Schedule.new(schedule_params)
-    end
+    status = SchedulesBusiness.create(schedule_params)
 
-    if @schedule.save
+    if status == :success
       render json: @schedule, status: :created, location: @schedule
     else
-      render json: @schedule.errors, status: :unprocessable_entity
+      render json: status, status: :unprocessable_entity
     end
   end
 

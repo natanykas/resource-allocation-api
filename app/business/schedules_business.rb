@@ -1,36 +1,38 @@
 class SchedulesBusiness
     
-    def initialize(params)
-       room = params[:room]
-       date = params[:date].to_date
-       time_start = params[:time_start].to_time
-       time_end = params[:time_end].to_time
-       user_id = params[:user_id]
 
-        can_schedule(room, date, time_start, time_end, user_id)
+    def self.create(params)
+       schedule = Schedule.new(params)
+       can_schedule(schedule)
     end
 
-    def can_schedule(room, date, time_start, time_end, user_id)
-        exist_room(room)
-        weekday(date)
-        hours_of_business(time_start)
-        room_available(room, date, time_start)
+    def self.can_schedule(schedule)
+        begin
+            exist_room(schedule.room) ? true : raise(I18n.t('errors.exist_room.detail'))
+            weekday(schedule.date.to_date) ? true : raise(I18n.t('errors.weekday.detail'))
+            hours_of_business(schedule.time_start) ? true : raise(I18n.t('errors.hours_of_business.detail'))
+            room_available(schedule) ? true : raise(I18n.t('errors.room_available.detail'))
+            schedule.save
+            :success
+        rescue => e
+            return e
+        end
     end
 
     private
-    def exist_room(room)
-        raise(I18n.t('errors.exist_room')) unless (1..4).include?(room)
+    def self.exist_room(room)
+        (1..4).include?(room)
     end
 
-    def weekday(date)
-        raise(I18n.t('errors.weekday')) unless date.on_weekday?
+    def self.weekday(date)
+        date.on_weekday?
     end
 
-    def hours_of_business(time_start)
-        raise(I18n.t('errors.hours_of_business')) unless ("09:00".to_time.."18:00".to_time).include?(time_start)
+    def self.hours_of_business(time_start)
+        time_start.between?('08:00','18:00') ? true : false
     end
 
-    def room_available(room, date, time_start)
-        raise(I18n.t('errors.room_available')) unless Schedule.where(room: room, date: date, time: time_start).empty?
+    def self.room_available(schedule)
+        Schedule.where(room: schedule.room, date: schedule.date.to_date, time: schedule.time_start.to_time).empty?
     end
 end
