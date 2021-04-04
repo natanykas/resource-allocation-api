@@ -1,24 +1,35 @@
-# README
+Preciso criar endpoint de criar, editar, mostrar e deletar a sala.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A sala só pode ser agendada em horário comercial, de segunda a sexta, das 09:00 as 18:00.
 
-Things you may want to cover:
+São 4 salas que estarão disponíveis.
 
-* Ruby version
+Projeto Resource Allocation 
 
-* System dependencies
+Schedule
+id: integer
+Room: integer
+Date: date
+Time: time
+User: user_id
 
-* Configuration
+User
+id: integer
+nome: string
 
-* Database creation
+Validações:
 
-* Database initialization
+* Garantir que somente pode ser alocado as salas de 1 a 4.
+* Garantir que somente pode ser alocado de segunda a sexta.
+* Garantir que somente pode ser alocado das 09:00 as 18:00.
+* Garantir que a sala só pode ter 1 agendamento por data/hora.
+* Garantir que exista o usuário cadastrado para realizar o agendamento.
 
-* How to run the test suite
+GEMS
+* Rspec-rails (Teste unitário)
+* Rubocop (Analisador de código - boas práticas)
+* Faker (Gerador de dados genéricos utilizados nos testes)
 
-* Services (job queues, cache servers, search engines, etc.)
+Primeiro Teste: O projeto irá falhar.
 
-* Deployment instructions
-
-* ...
+* Criar o projeto API Rails com o crud de Agendamento e create e edit User até que o teste passe

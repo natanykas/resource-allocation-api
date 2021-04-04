@@ -28,6 +28,24 @@ gem 'bootsnap', '>= 1.4.2', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # rspec-rails brings the RSpec testing framework to Ruby on Rails as a drop-in alternative to its default testing framework, Minitest.
+  gem 'rspec-rails'
+
+  # RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter
+  gem 'rubocop'
+
+  # Faker is used to easily generate fake data
+  gem 'faker'
+
+  # The original use case was to ensure a clean state during tests.
+  gem 'database_cleaner'
+
+  # factory_bot is a fixtures replacement with a straightforward definition syntax, support for multiple build strategies
+  gem 'factory_bot_rails'
+
+  # Shoulda Matchers provides RSpec- and Minitest-compatible one-liners to test common Rails functionality that, if written by hand, would be much longer, more complex, and error-prone.
+  gem 'shoulda-matchers'
 end
 
 group :development do
