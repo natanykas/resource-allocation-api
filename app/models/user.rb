@@ -1,6 +1,7 @@
-class User < ApplicationRecord
-    has_many :schedule
+# encoding: utf-8
 
-    #Validation
-    validates :name, presence: true
+class User < ApplicationRecord
+  has_many :schedule
+
+  validates :name, presence: true
 end

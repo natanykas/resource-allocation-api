@@ -1,9 +1,7 @@
 class SchedulesBusiness
     
-
-    def self.create(params)
-       schedule = Schedule.new(params)
-       can_schedule(schedule)
+    def self.create(schedule)
+        can_schedule(schedule)
     end
 
     def self.can_schedule(schedule)
@@ -11,6 +9,7 @@ class SchedulesBusiness
             exist_room(schedule.room) ? true : raise(I18n.t('errors.exist_room.detail'))
             weekday(schedule.date.to_date) ? true : raise(I18n.t('errors.weekday.detail'))
             hours_of_business(schedule.time_start) ? true : raise(I18n.t('errors.hours_of_business.detail'))
+            valid_user(schedule.user_id) ? true : raise(I18n.t('errors.valid_user.detail'))
             room_available(schedule) ? true : raise(I18n.t('errors.room_available.detail'))
             schedule.save
             :success
@@ -29,10 +28,14 @@ class SchedulesBusiness
     end
 
     def self.hours_of_business(time_start)
-        time_start.between?('08:00','18:00') ? true : false
+        time_start.strftime('%H:%M').between?('08:00', '18:00') ? true : false
+    end
+
+    def self.valid_user(user_id)
+        User.where(id: user_id).any?
     end
 
     def self.room_available(schedule)
-        Schedule.where(room: schedule.room, date: schedule.date.to_date, time: schedule.time_start.to_time).empty?
+        Schedule.where(room: schedule.room, date: schedule.date.to_date, time_start: schedule.time_start.to_time).empty?
     end
 end

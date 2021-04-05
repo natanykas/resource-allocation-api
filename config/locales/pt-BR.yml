@@ -231,4 +231,10 @@ pt-BR:
       detail: "Só pode ser agendado entre o período de 09:00 as 18:00."
     room_available:
       detail: "Periodo não disponível, por favor selecionar outro dia/horário."
+    valid_user:
+      detail: "Usuário informado não existe."
+
+  sucess:
+    schedule:
+      detail: "Agendamento criado com sucesso."  
       
