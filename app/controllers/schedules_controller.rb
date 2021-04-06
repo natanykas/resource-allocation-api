@@ -8,16 +8,11 @@ class SchedulesController < ApplicationController
     render json: @schedules
   end
 
-  # GET /schedules/1
-  def show
-    render json: @schedule
-  end
-
   # POST /schedules
   def create
     schedule = Schedule.new(schedule_params)
     status = SchedulesBusiness.create(schedule)
-
+    
     if status == :success
       render json: I18n.t('sucess.schedule.detail').to_json, status: :created, location: @schedule
     else
@@ -40,6 +35,7 @@ class SchedulesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_schedule
       @schedule = Schedule.find(params[:id])
