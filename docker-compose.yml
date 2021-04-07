@@ -1,21 +1,18 @@
-version: "3"
+version: "3.3"
 services:
-    mysql:
-      image: mysql:5.6
-      command: --default-authentication-plugin=mysql_native_password --explicit_defaults_for_timestamp
-      restart: always
-      environment:
-        MYSQL_ROOT_PASSWORD: 123456
-      ports:
-        - 3308:3306
-      volumes:
-        - db_mysql_data:/var/lib/mysql
-    app:
-        container_name: resouce-allocation-api
-        build: .
-        volumes:
-            - ".:/resouce-allocation-api"
-        ports:
-            - "3001:3000"
-volumes:
-    db_mysql_data:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/resouce-allocation-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
