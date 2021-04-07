@@ -40,8 +40,28 @@ Dependências
 * Docker
 * Docker-compose
 
-Montar o ambiente
-# Markdown
+*Montar o ambiente*
+
 ```
 docker-compose build
+```
+
+*Preparar o ambiente*
+
+```
+docker-compose rub web rake db:create rake db:migrate
+```
+
+*Rodar o projeto*
+
+```
+docker-compose up
+```
+
+http://0.0.0.0:3000
+
+*Testando o projeto*
+
+```
+docker-compose run web rspec
 ```
