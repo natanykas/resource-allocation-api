@@ -42,4 +42,6 @@ Dependências
 
 Montar o ambiente
 # Markdown
+```
 docker-compose build
+```
