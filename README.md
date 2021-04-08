@@ -49,7 +49,7 @@ docker-compose build
 *Preparar o ambiente*
 
 ```
-docker-compose rub web rake db:create rake db:migrate
+docker-compose run web rake db:create db:migrate
 ```
 
 *Rodar o projeto*
